@@ -30,12 +30,14 @@ public class ProductControler {
                 .productId(UUID.randomUUID().toString())
                 .build();
         String returnId = "";
-        try {
-            returnId = commandGateway.sendAndWait(createProductCommand);
+        returnId = commandGateway.sendAndWait(createProductCommand);
 
-        }catch (Exception e){
-            returnId = e.getLocalizedMessage();
-        }
+//        try {
+//            returnId = commandGateway.sendAndWait(createProductCommand);
+//
+//        }catch (Exception e){
+//            returnId = e.getLocalizedMessage();
+//        }
         return "HTTP post is handled : " + returnId;
 
     }

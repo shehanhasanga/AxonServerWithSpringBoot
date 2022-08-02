@@ -1,8 +1,10 @@
 package com.example.productService;
 
 import com.example.productService.command.CreateProductCommandInteceptor;
+import com.example.productService.core.errorhandling.ProdcutServiceEventsErrorHandler;
 import javafx.application.Application;
 import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.config.EventProcessingConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,5 +23,11 @@ public class ProductServiceApplication {
 	public void registerCreateProductCommandInterceptor(ApplicationContext context, CommandBus commandBus){
 		CreateProductCommandInteceptor createProductCommandInteceptor = context.getBean(CreateProductCommandInteceptor.class);
 		commandBus.registerDispatchInterceptor(createProductCommandInteceptor);
+	}
+
+	@Autowired
+	public void configure(EventProcessingConfigurer configurer){
+		configurer.registerListenerInvocationErrorHandler("product-group", conf -> new ProdcutServiceEventsErrorHandler());
+
 	}
 }

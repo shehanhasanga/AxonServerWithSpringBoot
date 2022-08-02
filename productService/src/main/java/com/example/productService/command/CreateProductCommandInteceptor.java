@@ -30,7 +30,7 @@ public class CreateProductCommandInteceptor implements MessageDispatchIntercepto
                 ProductLookupEntity productLookupEntity = productLookupRepository.findByProductIdOrTitle(createProductCommand.getProductId(),createProductCommand.getTitle());
                 if(productLookupEntity != null){
                     throw new IllegalStateException(String.format("Product with product id %s or title %s already exists", createProductCommand.getProductId(), createProductCommand.getTitle()));
-                    
+
                 }
             }
             return command;
